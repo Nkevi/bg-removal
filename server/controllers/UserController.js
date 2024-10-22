@@ -3,14 +3,19 @@ import userModel from "../models/userModel.js";
 
 // API Controller Function to Manage Clerk User with Database
 // http://localhost:4000/api/user/webhooks
-export default async function clerkWebhooks(req, res) {
+const clerkWebhooks = async (req, res) => {
   try {
+    // Log the incoming headers
+    console.log("Request Headers:", req.headers);
+
+    // Log the request body
+    console.log("Request Body:", req.body);
     // Create a Svix instance with clerk webhook secret.
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
     await whook.verify(JSON.stringify(req.body), {
       "svix-id": req.headers["svix-id"],
-      "svix-timestamp": req.headers["svic-timestamp"],
+      "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"],
     });
 
@@ -19,7 +24,7 @@ export default async function clerkWebhooks(req, res) {
     switch (type) {
       case "user.created": {
         const userData = {
-          clearId: data.id,
+          clerkId: data.id,
           email: data.email_addresses[0].email_address,
           fristName: data.first_name,
           lastName: data.last_name,
@@ -36,18 +41,17 @@ export default async function clerkWebhooks(req, res) {
           lastName: data.last_name,
           photo: data.image_url,
         };
-        await userModel.findOneAndUpdate({ cleakId: data.id }, userData);
+        await userModel.findOneAndUpdate({ clerkId: data.id }, userData);
         res.json({});
         break;
       }
       case "user.deleted": {
-        await userModel.findOneAndDelete({ cleakId: data.id });
+        await userModel.findOneAndDelete({ clerkId: data.id });
         res.json({});
         break;
       }
-      
+
       default:
-        
         break;
     }
   } catch (error) {
@@ -56,3 +60,4 @@ export default async function clerkWebhooks(req, res) {
   }
 }
 
+export { clerkWebhooks }
