@@ -5,11 +5,6 @@ import userModel from "../models/userModel.js";
 // http://localhost:4000/api/user/webhooks
 const clerkWebhooks = async (req, res) => {
   try {
-    // Log the incoming headers
-    console.log("Request Headers:", req.headers);
-
-    // Log the request body
-    console.log("Request Body:", req.body);
     // Create a Svix instance with clerk webhook secret.
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
