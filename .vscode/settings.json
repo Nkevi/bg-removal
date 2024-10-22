@@ -1,0 +1,18 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.autoSaveWhenNoErrors": false,
+  "tailwindCSS.codeActions": true,
+  "notebook.codeActionsOnSave": {
+
+  },
+  "editor.codeActionsOnSave": {
+
+  },
+  "editor.wordWrap": "on",
+  "html.format.wrapLineLength": 120,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modifications",
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": true
+}
